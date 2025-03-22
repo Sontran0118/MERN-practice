@@ -1,10 +1,14 @@
 import {useState} from "react"
+import { useWorkoutContext } from "../hooks/useWorkoutContext"
 
 const WorkoutForm = ()=>{
+
+    const {dispatch} = useWorkoutContext()
     const [title, setTitle] = useState('')
     const [load, setLoad] = useState('')
     const [reps, setReps] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmtyFields ] = useState([])
 
     const handleSubmit = async (e)=>{
         e.preventDefault()
@@ -24,8 +28,11 @@ const WorkoutForm = ()=>{
 
 
         if(!response.ok){
-            console.log(json.error)
+            
+
             setError(json.error)
+
+            setEmtyFields(json.emptyFields)
 
         }
 
@@ -34,7 +41,9 @@ const WorkoutForm = ()=>{
             setLoad('')
             setReps('')
             setError(null)
-            console.log('new workout loeaded')
+            setEmtyFields('')
+            console.log('new workout loaded',json)
+            dispatch({type: 'CREATE_WORKOUT', payload: json})
         }
         
 
@@ -53,7 +62,10 @@ const WorkoutForm = ()=>{
             <input 
             type ="Text"
             onChange={(e) => setTitle(e.target.value)}
-            value={title}>
+            value={title}
+            className={emptyFields.includes('title')?'error': ''}
+            >
+           
             </input>
 
             <label>
@@ -62,7 +74,9 @@ const WorkoutForm = ()=>{
             <input 
             type ="Number"
             onChange={(e) => setLoad(e.target.value)}
-            value={load}>
+            value={load}
+            className={emptyFields.includes('load')?'error': ''}
+            >
             </input>
 
 
@@ -73,7 +87,10 @@ const WorkoutForm = ()=>{
             <input 
             type ="Number"
             onChange={(e) => setReps(e.target.value)}
-            value={reps}>
+            value={reps}
+            className={emptyFields.includes('reps')?'error': ''}
+        
+            >
             </input>
 
             <button>Add workout</button>

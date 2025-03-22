@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
+import { WorkoutContextProvider } from './context/workoutContext';
+import { ShowUpdateFormProvider } from './context/showUpdateFormContext';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <WorkoutContextProvider>
+    <ShowUpdateFormProvider>
+
+
     <App />
+
+
+    </ShowUpdateFormProvider>
+    </WorkoutContextProvider>
   </React.StrictMode>
 );
 

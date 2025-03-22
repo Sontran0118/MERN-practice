@@ -28,7 +28,6 @@
 .workout_details{
   grid-column: 1;
 }
-
 .workout_details{
   background: #fff;
   border-radius: 4px;
@@ -37,6 +36,11 @@
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
 }
+.workout_details .workout_details_heading {
+  color: var(--primary);
+}
+
+
 
 body {
   background-color: #fafafa; /* Light background */
@@ -172,5 +176,9 @@ header a:hover {
   margin-top: 10px;
   border-radius: 5px;
   text-align: center;
+}
+
+input .error{
+  border: 1px solid var(--error);
 }
 
